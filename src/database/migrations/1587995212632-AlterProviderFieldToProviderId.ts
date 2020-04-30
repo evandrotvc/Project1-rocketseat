@@ -29,6 +29,7 @@ export default class AlterProviderFieldToProviderId1587995212632 implements Migr
         await queryRunner.addColumn('appointments',new TableColumn({
             name: "provider",
             type: 'varchar',
+            isNullable: true,
         }))
     }
 

@@ -4,12 +4,14 @@ import {getCustomRepository} from 'typeorm'
 import AppointmentRepository from '../repositories/AppointmentRepository'
 import {  parseISO } from 'date-fns'
 import CreateAppointmentsService from '../services/CreateAppointmentsServices'
+import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 
 const appointmentsRouter = Router()
 
-// const RepositoryAppointments = new AppointmentRepository()
+appointmentsRouter.use(ensureAuthenticated) // middleware verify authentication user.
 
 appointmentsRouter.get('/' , async(request , response ) => {
+    console.log("->", request.user)
     const Repositories = getCustomRepository(AppointmentRepository)
     const appointments = await Repositories.find()
     return response.json(appointments)
